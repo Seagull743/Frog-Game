@@ -21,21 +21,37 @@ public class PlayerController : MonoBehaviour
     public float jumpBufferLength;
     private float jumpBufferCount;
 
+    public SpriteRenderer sr;
 
+    private Animator anim;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
-       
+        anim = GetComponent<Animator>();
+
+        sr = GetComponent<SpriteRenderer>();
+
     }
 
     private void FixedUpdate()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+
+        if(moveInput > 0)
+        {
+            sr.flipX = false;
+        }
+        else if(moveInput < 0)
+        {
+            sr.flipX = true;
+        }
     }
+
+
 
     void Update()
     {

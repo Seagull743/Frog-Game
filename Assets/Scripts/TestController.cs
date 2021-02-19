@@ -12,23 +12,46 @@ public class TestController : MonoBehaviour
     public Transform feetPos;
     public float checkRadius;
     public LayerMask whatIsGround;
-   
-
+    private SpriteRenderer sr;
    
 
 
     public float jumpValue = 0.0f;
     public bool canJump = true;
 
+    public Animator anim;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
 
     void Update()
     {
+
+        if(moveInput == 0)
+        {
+            anim.SetBool("isWalking", false);
+        }
+        else
+        {
+            anim.SetBool("isWalking", true);
+        }
+
+        if (moveInput > 0)
+        {
+            sr.flipX = false;
+          
+        }
+        else if (moveInput < 0)
+        {
+            sr.flipX = true;
+        }
+
         moveInput = Input.GetAxisRaw("Horizontal");
        
         if(jumpValue == 0.0f && isGrounded)
@@ -43,11 +66,13 @@ public class TestController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded && canJump)
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
+            
         }
 
         
         if (Input.GetKey(KeyCode.Space) && isGrounded && canJump)
         {
+            
             jumpValue += 0.1f;
         }
 
@@ -65,15 +90,15 @@ public class TestController : MonoBehaviour
             {
                 rb.velocity = new Vector2(moveInput * speed, jumpValue);
                 jumpValue = 0.0f;
+                
+                
             }
-        
+            
         {
             canJump = true;
         }
         
         
-
-    
       }
 
     private void ResetJump()
