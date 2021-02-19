@@ -13,7 +13,7 @@ public class TestController : MonoBehaviour
     public float checkRadius;
     public LayerMask whatIsGround;
     private SpriteRenderer sr;
-   
+
 
 
     public float jumpValue = 0.0f;
@@ -32,24 +32,34 @@ public class TestController : MonoBehaviour
 
     void Update()
     {
-
-        if(moveInput == 0)
+            
+        if(moveInput == 0 && isGrounded == true )
         {
             anim.SetBool("isWalking", false);
+            
         }
+
         else
         {
             anim.SetBool("isWalking", true);
         }
 
-        if (moveInput > 0)
+        if(!isGrounded)
+        {
+         anim.SetBool("isWalking", false);       
+        }
+
+       
+       
+        if (moveInput > 0 )
         {
             sr.flipX = false;
-          
+                          
         }
         else if (moveInput < 0)
         {
             sr.flipX = true;
+                     
         }
 
         moveInput = Input.GetAxisRaw("Horizontal");
@@ -66,10 +76,21 @@ public class TestController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space) && isGrounded && canJump)
         {
             rb.velocity = new Vector2(0.0f, rb.velocity.y);
-            
+            anim.SetBool("TakeOff", true);          
         }
 
+
         
+        if(isGrounded == true)
+        {
+            anim.SetBool("isJumping", false);
+           
+        }
+        else{
+            anim.SetBool("isJumping", true);
+        }
+
+
         if (Input.GetKey(KeyCode.Space) && isGrounded && canJump)
         {
             
@@ -89,16 +110,12 @@ public class TestController : MonoBehaviour
             if (isGrounded)
             {
                 rb.velocity = new Vector2(moveInput * speed, jumpValue);
-                jumpValue = 0.0f;
-                
-                
+                jumpValue = 0.0f;                        
             }
             
         {
             canJump = true;
-        }
-        
-        
+        }       
       }
 
     private void ResetJump()
