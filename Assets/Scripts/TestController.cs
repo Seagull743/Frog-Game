@@ -96,7 +96,7 @@ public class TestController : MonoBehaviour
 
             timer++;
             anim.SetBool("isJumping", true);
-            if(timer == 1)
+            if(timer == 1f && jumpValue > 1)
             {
              Instantiate(Burst, feetPos.transform.position, Quaternion.identity);
             }
