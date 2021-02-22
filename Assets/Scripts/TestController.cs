@@ -14,13 +14,19 @@ public class TestController : MonoBehaviour
     public LayerMask whatIsGround;
     private SpriteRenderer sr;
 
-
+   
+    public ParticleSystem Burst;
 
     public float jumpValue = 0.0f;
     public bool canJump = true;
 
     public Animator anim;
 
+    public int timer;
+
+
+  
+    
 
     void Start()
     {
@@ -32,11 +38,11 @@ public class TestController : MonoBehaviour
 
     void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
             
         if(moveInput == 0 && isGrounded == true )
         {
-            anim.SetBool("isWalking", false);
-            
+            anim.SetBool("isWalking", false);            
         }
 
         else
@@ -46,9 +52,8 @@ public class TestController : MonoBehaviour
 
         if(!isGrounded)
         {
-         anim.SetBool("isWalking", false);       
+            anim.SetBool("isWalking", false);       
         }
-
        
        
         if (moveInput > 0 )
@@ -69,7 +74,6 @@ public class TestController : MonoBehaviour
             rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
         }
       
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
 
 
 
@@ -83,40 +87,52 @@ public class TestController : MonoBehaviour
         
         if(isGrounded == true)
         {
+            timer = 0;
             anim.SetBool("isJumping", false);
-           
+            
+            
         }
-        else{
+        else {
+
+            timer++;
             anim.SetBool("isJumping", true);
+            if(timer == 1)
+            {
+             Instantiate(Burst, feetPos.transform.position, Quaternion.identity);
+            }
+
+            
         }
 
 
         if (Input.GetKey(KeyCode.Space) && isGrounded && canJump)
-        {
-            
+        {      
             jumpValue += 0.1f;
         }
-
+              
         if (jumpValue >= 15f && isGrounded)
         {
+            
             float tempx = moveInput * speed;
             float tempy = jumpValue;
             rb.velocity = new Vector2(tempx, tempy);
             Invoke("ResetJump", 0.2f);
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
-
-            if (isGrounded)
-            {
-                rb.velocity = new Vector2(moveInput * speed, jumpValue);
-                jumpValue = 0.0f;                        
-            }
-            
+        if (Input.GetKeyUp(KeyCode.Space) && isGrounded) 
         {
-            canJump = true;
-        }       
-      }
+           
+            rb.velocity = new Vector2(moveInput * speed, jumpValue);
+            jumpValue = 0.0f;             
+        }
+        
+        canJump = true;
+
+    }
+
+   
+       
+
 
     private void ResetJump()
     {
