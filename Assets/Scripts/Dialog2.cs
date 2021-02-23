@@ -17,7 +17,7 @@ public class Dialog2 : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             StartCoroutine(Type());
-            Invoke("LoadMainMenu", 5.0f);
+            Invoke("LoadMainMenu", 3.0f);
         }
     }
   

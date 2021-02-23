@@ -92,13 +92,16 @@ public class TestController : MonoBehaviour
             
             
         }
-        else {
-
-            timer++;
+        else 
+        {
+            timer++;  
             anim.SetBool("isJumping", true);
-            if(timer == 1f && jumpValue > 1)
+
+            if(timer == 1f && jumpValue > 0.1f)
             {
-             Instantiate(Burst, feetPos.transform.position, Quaternion.identity);
+                Debug.Log("jumpvalue = " + jumpValue);
+                Instantiate(Burst, feetPos.transform.position, Quaternion.identity);
+                jumpValue = 0;
             }
 
             
@@ -107,7 +110,8 @@ public class TestController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && isGrounded && canJump)
         {      
-            jumpValue += 0.1f;
+            jumpValue += 0.2f;
+            
         }
               
         if (jumpValue >= 15f && isGrounded)
@@ -122,8 +126,7 @@ public class TestController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space) && isGrounded) 
         {
            
-            rb.velocity = new Vector2(moveInput * speed, jumpValue);
-            jumpValue = 0.0f;             
+            rb.velocity = new Vector2(moveInput * speed, jumpValue);         
         }
         
         canJump = true;
