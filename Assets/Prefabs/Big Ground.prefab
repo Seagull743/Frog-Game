@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1510541317546019285}
   - component: {fileID: 1510541317546019284}
   - component: {fileID: 1510541317546019283}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Big Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1510541317546019282}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7a8ebb6304b5a6e4c8b35676390618d5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

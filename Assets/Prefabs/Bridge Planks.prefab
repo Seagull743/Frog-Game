@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1005888316263608567}
   - component: {fileID: 1005888316263608566}
   - component: {fileID: 1005888316263608561}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bridge Planks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
