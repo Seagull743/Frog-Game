@@ -9,19 +9,40 @@ public class Dialog2 : MonoBehaviour
     public TextMeshProUGUI textDisplay;
     public string[] sentences;
     private int index;
-    
-  
+
+    public GameObject trophy;
+    public Animator anim;
+
+    void Awake()
+    {
+       trophy.SetActive(false);
+    }
+
+
+    void start()
+    {
+      
+      anim.SetBool("Won", false);
+      anim.GetComponentInChildren<Animator>();
+
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "Player")
         {
             StartCoroutine(Type());
-            Invoke("LoadMainMenu", 3.0f);
+            Invoke("LoadMainMenu", 6f);
+            Invoke("SpawnTrophy", 0.8f);             
         }
     }
   
-     
+     private void SpawnTrophy()
+     {
+        trophy.SetActive(true);
+        anim.SetBool("Won", true);   
+     }
+
     private void LoadMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
